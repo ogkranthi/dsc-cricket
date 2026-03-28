@@ -11,7 +11,13 @@ const roleColors: Record<string, string> = {
 };
 
 export default function PlayersPage() {
-  const players = getPlayers();
+  const players = getPlayers().sort((a, b) => {
+    if (a.captain) return -1;
+    if (b.captain) return 1;
+    if (a.viceCaptain) return -1;
+    if (b.viceCaptain) return 1;
+    return a.name.localeCompare(b.name);
+  });
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
@@ -28,6 +34,16 @@ export default function PlayersPage() {
                 <p className="text-xs text-slate-600 font-bold mt-2">#{player.jerseyNumber}</p>
               )}
               <p className="font-bold text-white mt-2">{player.name}</p>
+              {player.captain && (
+                <span className="inline-block text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full mt-1 bg-orange-500/20 text-orange-400 border border-orange-600/30">
+                  Captain
+                </span>
+              )}
+              {player.viceCaptain && (
+                <span className="inline-block text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full mt-1 bg-blue-500/15 text-blue-400 border border-blue-600/30">
+                  Vice Captain
+                </span>
+              )}
               <span className={`inline-block text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mt-2 border ${roleColors[player.role] || "bg-slate-500/15 text-slate-400"}`}>
                 {player.role}
               </span>

@@ -13,6 +13,8 @@ export interface Player {
   photo?: string;
   bio?: string;
   jerseyNumber?: number;
+  captain?: boolean;
+  viceCaptain?: boolean;
 }
 
 export interface BattingInning {
