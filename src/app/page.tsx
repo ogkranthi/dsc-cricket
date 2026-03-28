@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { getMatches, getTeamStats, getSchedule, getPosts, getBattingLeaderboard } from "@/lib/content";
-import { Card, CardContent } from "@/components/ui/card";
+import { getMatches, getTeamStats, getSchedule, getPosts, getBattingLeaderboard, getSeasons } from "@/lib/content";
 import { Badge } from "@/components/ui/badge";
+import { SeasonHighlights } from "@/components/SeasonHighlights";
 
 export default function HomePage() {
   const matches = getMatches();
@@ -10,53 +10,50 @@ export default function HomePage() {
   const posts = getPosts();
   const topBatters = getBattingLeaderboard().slice(0, 3);
 
+  const seasons = getSeasons();
   const recentMatches = matches.filter((m) => m.result !== "Upcoming").slice(0, 3);
   const nextFixture = schedule.find((f) => f.status === "upcoming");
   const latestPost = posts[0];
 
   return (
     <div>
-      {/* Hero */}
-      <section className="gradient-hero relative overflow-hidden">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 right-10 w-96 h-96 rounded-full border border-[#213661]/30" />
-          <div className="absolute bottom-10 left-10 w-64 h-64 rounded-full border border-orange-500/20" />
+      {/* Hero — clean, bold, sports-focused */}
+      <section className="relative overflow-hidden bg-[#08090d]">
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full bg-[#ff8c2a]/[0.03] blur-[120px]" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#1e3a5f]/[0.08] blur-[100px]" />
         </div>
-        <div className="mx-auto max-w-6xl px-4 py-20 md:py-28 relative">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#213661]/20 border border-[#213661]/30 text-blue-400 text-xs font-semibold tracking-wider uppercase mb-6">
-              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-              Season 2026
-            </div>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white leading-[0.9]">
-              DSC<br />
-              <span className="text-orange-500">CRICKET</span>
+        <div className="mx-auto max-w-6xl px-4 py-16 md:py-24 relative">
+          <div className="max-w-xl">
+            <p className="text-[#ff8c2a] text-xs font-bold tracking-[0.25em] uppercase mb-4">Season 2026</p>
+            <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-white leading-[0.95]">
+              DECCAN<br />SPORTS CLUB
             </h1>
-            <p className="text-lg text-slate-400 mt-6 max-w-md">
-              Match reports, live stats, player profiles, and everything DSC. Powered by AI.
+            <p className="text-base text-slate-500 mt-4 leading-relaxed">
+              Match reports, scorecards, player stats, and team updates.
             </p>
-            <div className="flex gap-3 mt-8">
+            <div className="flex gap-3 mt-7">
               <Link
                 href="/matches"
-                className="px-6 py-3 rounded-lg gradient-navy text-white font-bold text-sm tracking-wide hover:opacity-90 transition-opacity shadow-lg shadow-[#213661]/30"
+                className="px-5 py-2.5 rounded-lg bg-[#ff8c2a] text-white font-bold text-xs tracking-wider hover:bg-[#e07a20] transition-colors"
               >
-                VIEW MATCHES
+                MATCHES
               </Link>
               <Link
                 href="/players"
-                className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 text-white font-bold text-sm tracking-wide hover:bg-white/10 transition-colors"
+                className="px-5 py-2.5 rounded-lg bg-white/[0.06] text-white font-bold text-xs tracking-wider hover:bg-white/[0.1] transition-colors"
               >
-                MEET THE SQUAD
+                SQUAD
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats bar */}
-      <section className="border-y border-[#213661]/30 bg-[#0d1420]">
-        <div className="mx-auto max-w-6xl px-4 py-6">
-          <div className="grid grid-cols-5 divide-x divide-slate-800">
+      {/* Stats strip */}
+      <section className="border-y border-white/[0.04] bg-[#0a0c12]">
+        <div className="mx-auto max-w-6xl px-4 py-5">
+          <div className="grid grid-cols-5 gap-4">
             {[
               { label: "PLAYED", value: stats.played },
               { label: "WON", value: stats.won },
@@ -64,41 +61,35 @@ export default function HomePage() {
               { label: "TIED", value: stats.tied },
               { label: "WIN %", value: stats.played > 0 ? `${Math.round((stats.won / stats.played) * 100)}%` : "-" },
             ].map((s) => (
-              <div key={s.label} className="text-center px-2">
-                <p className="text-2xl md:text-3xl font-black stat-number">{s.value}</p>
-                <p className="text-[10px] uppercase tracking-[0.15em] text-slate-500 font-semibold mt-1">{s.label}</p>
+              <div key={s.label} className="text-center">
+                <p className="text-xl md:text-2xl font-black stat-number">{s.value}</p>
+                <p className="text-[9px] uppercase tracking-[0.2em] text-slate-600 font-semibold mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl px-4 py-10 space-y-12">
+      <div className="mx-auto max-w-6xl px-4 py-8 space-y-10">
         {/* Next match */}
         {nextFixture && (
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400 mb-4">Next Match</h2>
-            <div className="rounded-xl border-glow-orange bg-gradient-to-r from-[#111827] via-[#1a1510] to-[#111827] p-6 glow-orange">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-xl gradient-navy flex items-center justify-center font-black text-white text-xl shadow-lg">
-                    DSC
-                  </div>
+            <p className="section-label text-[#ff8c2a] mb-3">Next Match</p>
+            <div className="rounded-xl bg-gradient-to-r from-[#0e1117] via-[#15120d] to-[#0e1117] p-5 border border-[#ff8c2a]/10">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-5">
+                <div className="flex items-center gap-5">
+                  <img src="/logo.svg" alt="DSC" width={48} height={48} className="rounded-xl" />
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-orange-500 font-semibold">VS</p>
-                    <p className="text-xl font-bold text-white">{nextFixture.opponent}</p>
+                    <p className="text-[10px] uppercase tracking-widest text-[#ff8c2a] font-bold">VS</p>
+                    <p className="text-lg font-extrabold text-white tracking-tight">{nextFixture.opponent}</p>
                   </div>
                 </div>
                 <div className="text-center md:text-right">
-                  <p className="text-lg font-bold text-white">
-                    {new Date(nextFixture.date).toLocaleDateString("en-US", {
-                      weekday: "long",
-                      month: "short",
-                      day: "numeric",
-                    })}
+                  <p className="text-sm font-bold text-white">
+                    {new Date(nextFixture.date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
                   </p>
-                  <p className="text-sm text-slate-400">{nextFixture.time} &middot; {nextFixture.venue}</p>
-                  <Badge className="mt-2 bg-orange-600/20 text-orange-500 border-orange-600/30">{nextFixture.matchType}</Badge>
+                  <p className="text-xs text-slate-500 mt-0.5">{nextFixture.time} &middot; {nextFixture.venue}</p>
+                  <span className="inline-block mt-1.5 text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-[#ff8c2a]/10 text-[#ff8c2a]">{nextFixture.matchType}</span>
                 </div>
               </div>
             </div>
@@ -107,42 +98,39 @@ export default function HomePage() {
 
         {/* Recent results */}
         <section>
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">Recent Results</h2>
-            <Link href="/matches" className="text-xs text-slate-400 hover:text-orange-400 font-semibold tracking-wider uppercase transition-colors">
-              View all &rarr;
+          <div className="flex items-center justify-between mb-3">
+            <p className="section-label text-slate-400">Recent Results</p>
+            <Link href="/matches" className="text-[11px] text-slate-500 hover:text-[#ff8c2a] font-semibold tracking-wider uppercase transition-colors">
+              All &rarr;
             </Link>
           </div>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-3 gap-3">
             {recentMatches.map((match) => (
               <Link key={match.id} href={`/matches/${match.id}`}>
-                <div className={`rounded-xl gradient-card p-5 hover:scale-[1.02] transition-transform border ${
-                  match.result === "Won" ? "border-[#213661]/40 hover:border-blue-500/40" : "border-red-900/30 hover:border-red-600/40"
+                <div className={`rounded-xl gradient-card p-4 card-hover border ${
+                  match.result === "Won" ? "border-emerald-500/10" : "border-rose-500/10"
                 }`}>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[10px] uppercase tracking-widest text-slate-600 font-semibold">
                       {new Date(match.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                     </span>
-                    <span className={`text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded ${
-                      match.result === "Won"
-                        ? "bg-blue-500/15 text-blue-400"
-                        : "bg-red-500/15 text-red-400"
+                    <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded ${
+                      match.result === "Won" ? "badge-won" : "badge-lost"
                     }`}>
                       {match.result}
                     </span>
                   </div>
-                  <p className="font-bold text-white text-lg">vs {match.opponent}</p>
-                  <div className="mt-3 space-y-1">
+                  <p className="font-extrabold text-white text-base tracking-tight">vs {match.opponent}</p>
+                  <div className="mt-2.5 space-y-0.5">
                     <div className="flex justify-between text-sm">
-                      <span className="text-orange-400 font-semibold">DSC</span>
-                      <span className="text-white font-bold">{match.dscScore}</span>
+                      <span className="text-[#ff8c2a] font-bold text-xs">DSC</span>
+                      <span className="text-white font-bold text-xs">{match.dscScore}</span>
                     </div>
                     <div className="flex justify-between text-sm">
-                      <span className="text-slate-400">{match.opponent}</span>
-                      <span className="text-slate-300">{match.opponentScore}</span>
+                      <span className="text-slate-500 text-xs">{match.opponent}</span>
+                      <span className="text-slate-400 text-xs">{match.opponentScore}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-slate-500 mt-3">{match.venue}</p>
                 </div>
               </Link>
             ))}
@@ -152,27 +140,25 @@ export default function HomePage() {
         {/* Top performers */}
         {topBatters.length > 0 && (
           <section>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">Top Run Scorers</h2>
-              <Link href="/leaderboard" className="text-xs text-slate-400 hover:text-orange-400 font-semibold tracking-wider uppercase transition-colors">
-                Full stats &rarr;
+            <div className="flex items-center justify-between mb-3">
+              <p className="section-label text-slate-400">Top Run Scorers</p>
+              <Link href="/leaderboard" className="text-[11px] text-slate-500 hover:text-[#ff8c2a] font-semibold tracking-wider uppercase transition-colors">
+                Stats &rarr;
               </Link>
             </div>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid md:grid-cols-3 gap-3">
               {topBatters.map((player, i) => {
-                const medals = ["bg-orange-500", "bg-slate-400", "bg-amber-700"];
+                const rankColors = ["text-[#ff8c2a]", "text-slate-400", "text-amber-700"];
                 return (
-                  <div key={player.playerId} className="rounded-xl gradient-card border border-slate-800 p-5 flex items-center gap-4">
-                    <div className={`w-10 h-10 rounded-full ${medals[i]} flex items-center justify-center text-white font-black text-sm`}>
-                      {i + 1}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-bold text-white">{player.playerName}</p>
-                      <p className="text-xs text-slate-500">{player.matches} matches</p>
+                  <div key={player.playerId} className="rounded-xl gradient-card border border-white/[0.04] p-4 flex items-center gap-3.5">
+                    <span className={`text-2xl font-black ${rankColors[i]} w-8 text-center`}>{i + 1}</span>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-white text-sm truncate">{player.playerName}</p>
+                      <p className="text-[10px] text-slate-600">{player.matches} matches</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-black stat-number">{player.runs}</p>
-                      <p className="text-[10px] uppercase tracking-wider text-slate-500">runs</p>
+                      <p className="text-xl font-black stat-number">{player.runs}</p>
+                      <p className="text-[9px] uppercase tracking-widest text-slate-600 font-semibold">runs</p>
                     </div>
                   </div>
                 );
@@ -181,22 +167,27 @@ export default function HomePage() {
           </section>
         )}
 
+        {/* Season highlights */}
+        {seasons.map((season) => (
+          <SeasonHighlights key={season.year} season={season} />
+        ))}
+
         {/* Latest news */}
         {latestPost && (
           <section>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">Latest News</h2>
-              <Link href="/news" className="text-xs text-slate-400 hover:text-orange-400 font-semibold tracking-wider uppercase transition-colors">
-                All articles &rarr;
+            <div className="flex items-center justify-between mb-3">
+              <p className="section-label text-slate-400">Latest</p>
+              <Link href="/news" className="text-[11px] text-slate-500 hover:text-[#ff8c2a] font-semibold tracking-wider uppercase transition-colors">
+                All &rarr;
               </Link>
             </div>
             <Link href={`/news/${latestPost.slug}`}>
-              <div className="rounded-xl gradient-card border border-slate-800 p-6 hover:border-[#213661]/50 transition-colors">
-                <Badge className="bg-[#213661]/20 text-blue-400 border-[#213661]/40 mb-3">{latestPost.category}</Badge>
-                <h3 className="text-xl font-bold text-white mb-2">{latestPost.title}</h3>
-                <p className="text-slate-400 text-sm">{latestPost.excerpt}</p>
-                <p className="text-xs text-slate-600 mt-3">
-                  {new Date(latestPost.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+              <div className="rounded-xl gradient-card border border-white/[0.04] p-5 card-hover">
+                <span className="text-[10px] font-bold tracking-widest uppercase text-[#ff8c2a]">{latestPost.category}</span>
+                <h3 className="text-lg font-extrabold text-white mt-1.5 tracking-tight">{latestPost.title}</h3>
+                <p className="text-slate-500 text-sm mt-1.5 leading-relaxed">{latestPost.excerpt}</p>
+                <p className="text-[10px] text-slate-700 mt-3 font-semibold">
+                  {new Date(latestPost.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                 </p>
               </div>
             </Link>

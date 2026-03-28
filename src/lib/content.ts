@@ -136,6 +136,50 @@ export function getSchedule(): Fixture[] {
   return allFixtures.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
 }
 
+// Season data
+export interface SeasonTournament {
+  name: string;
+  played: number;
+  won: number;
+  lost: number;
+  position: string;
+}
+
+export interface SeasonHighlight {
+  title: string;
+  description: string;
+  type: "moment" | "achievement" | "performance" | "culture";
+}
+
+export interface SeasonMotm {
+  player: string;
+  playerId: string;
+  match: string;
+  performance: string;
+  photo?: string;
+}
+
+export interface Season {
+  id: string;
+  year: number;
+  overallWinPct: number;
+  teamRating: number;
+  captaincyRating: number;
+  playerSatisfaction: number;
+  tournaments: SeasonTournament[];
+  highlights: SeasonHighlight[];
+  motm: SeasonMotm[];
+}
+
+export function getSeasons(): Season[] {
+  const seasons = readMdxFiles<Season>("seasons");
+  return seasons.sort((a, b) => b.year - a.year);
+}
+
+export function getSeason(year: number): Season | undefined {
+  return getSeasons().find((s) => s.year === year);
+}
+
 // Computed stats
 export interface BattingLeader {
   playerId: string;
