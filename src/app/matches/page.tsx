@@ -31,10 +31,12 @@ export default function MatchesPage() {
                       {match.result}
                     </span>
                   </div>
-                  <div className="flex gap-4 mt-1 text-xs text-slate-500 font-semibold uppercase tracking-wider">
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-1 text-xs text-slate-500 font-semibold uppercase tracking-wider">
                     <span>{new Date(match.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}</span>
                     <span>{match.venue}</span>
                     <span>{match.matchType}</span>
+                    {match.league && <span className="text-orange-400/60">{match.league}</span>}
+                    {match.matchStage && match.matchStage !== "League" && <span className="text-blue-400/60">{match.matchStage}</span>}
                   </div>
                 </div>
                 {match.dscScore && (

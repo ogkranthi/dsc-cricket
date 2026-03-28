@@ -44,6 +44,8 @@ export interface Match {
   date: string;
   venue: string;
   matchType: string;
+  league?: string;
+  matchStage?: string;
   result: "Won" | "Lost" | "Tied" | "No Result" | "Upcoming";
   dscScore?: string;
   opponentScore?: string;

@@ -32,6 +32,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         <p className="text-sm text-slate-500">
           {new Date(match.date).toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
           {" · "}{match.venue} · {match.matchType}
+          {match.league && <span className="text-orange-400/70"> · {match.league}</span>}
+          {match.matchStage && match.matchStage !== "League" && <span className="text-blue-400/70"> · {match.matchStage}</span>}
         </p>
         {match.tossWinner && (
           <p className="text-xs text-slate-600 mt-1">
