@@ -255,6 +255,42 @@ export default function DCLPage() {
           </div>
         </div>
       </section>
+
+      {/* Live Streaming */}
+      <section className="rounded-xl border-glow bg-gradient-to-r from-[#111827] via-[#0f1a2e] to-[#111827] p-6 glow-navy">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-red-400">
+                <polygon points="5 3 19 12 5 21 5 3" fill="currentColor" />
+              </svg>
+            </div>
+            <div>
+              <div className="flex items-center gap-2">
+                <p className="font-black text-white text-lg">Live Streaming</p>
+                <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 text-[10px] font-bold uppercase tracking-wider">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+                  Live
+                </span>
+              </div>
+              <p className="text-sm text-slate-400 mt-1">All DCL matches will be streamed live. Stay tuned for links!</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section className="rounded-xl gradient-card border border-slate-800 p-6 text-center">
+        <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400 mb-3">Contact</h2>
+        <p className="text-slate-400 text-sm mb-3">For team registrations, sponsorship inquiries, and general information</p>
+        <a href="mailto:deccansports22@gmail.com" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg gradient-navy text-white font-bold text-sm tracking-wide hover:opacity-90 transition-opacity shadow-lg shadow-[#213661]/30">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white">
+            <rect x="2" y="4" width="20" height="16" rx="2" />
+            <path d="M22 4L12 13L2 4" />
+          </svg>
+          deccansports22@gmail.com
+        </a>
+      </section>
     </div>
   );
 }
