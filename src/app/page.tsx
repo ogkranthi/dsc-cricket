@@ -19,18 +19,18 @@ export default function HomePage() {
       {/* Hero */}
       <section className="gradient-hero relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 right-10 w-96 h-96 rounded-full border border-green-500/20" />
-          <div className="absolute bottom-10 left-10 w-64 h-64 rounded-full border border-yellow-500/20" />
+          <div className="absolute top-10 right-10 w-96 h-96 rounded-full border border-[#213661]/30" />
+          <div className="absolute bottom-10 left-10 w-64 h-64 rounded-full border border-orange-500/20" />
         </div>
         <div className="mx-auto max-w-6xl px-4 py-20 md:py-28 relative">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-semibold tracking-wider uppercase mb-6">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#213661]/20 border border-[#213661]/30 text-blue-400 text-xs font-semibold tracking-wider uppercase mb-6">
+              <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
               Season 2026
             </div>
             <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white leading-[0.9]">
               DSC<br />
-              <span className="text-green-500">CRICKET</span>
+              <span className="text-orange-500">CRICKET</span>
             </h1>
             <p className="text-lg text-slate-400 mt-6 max-w-md">
               Match reports, live stats, player profiles, and everything DSC. Powered by AI.
@@ -38,7 +38,7 @@ export default function HomePage() {
             <div className="flex gap-3 mt-8">
               <Link
                 href="/matches"
-                className="px-6 py-3 rounded-lg gradient-green text-white font-bold text-sm tracking-wide hover:opacity-90 transition-opacity shadow-lg shadow-green-900/30"
+                className="px-6 py-3 rounded-lg gradient-navy text-white font-bold text-sm tracking-wide hover:opacity-90 transition-opacity shadow-lg shadow-[#213661]/30"
               >
                 VIEW MATCHES
               </Link>
@@ -54,7 +54,7 @@ export default function HomePage() {
       </section>
 
       {/* Stats bar */}
-      <section className="border-y border-green-900/20 bg-[#0d1420]">
+      <section className="border-y border-[#213661]/30 bg-[#0d1420]">
         <div className="mx-auto max-w-6xl px-4 py-6">
           <div className="grid grid-cols-5 divide-x divide-slate-800">
             {[
@@ -77,15 +77,15 @@ export default function HomePage() {
         {/* Next match */}
         {nextFixture && (
           <section>
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500 mb-4">Next Match</h2>
-            <div className="rounded-xl border-glow-gold bg-gradient-to-r from-[#111827] via-[#1a1a0a] to-[#111827] p-6 glow-gold">
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400 mb-4">Next Match</h2>
+            <div className="rounded-xl border-glow-orange bg-gradient-to-r from-[#111827] via-[#1a1510] to-[#111827] p-6 glow-orange">
               <div className="flex flex-col md:flex-row items-center justify-between gap-6">
                 <div className="flex items-center gap-6">
-                  <div className="w-16 h-16 rounded-xl gradient-green flex items-center justify-center font-black text-white text-xl shadow-lg">
+                  <div className="w-16 h-16 rounded-xl gradient-navy flex items-center justify-center font-black text-white text-xl shadow-lg">
                     DSC
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider text-yellow-500 font-semibold">VS</p>
+                    <p className="text-xs uppercase tracking-wider text-orange-500 font-semibold">VS</p>
                     <p className="text-xl font-bold text-white">{nextFixture.opponent}</p>
                   </div>
                 </div>
@@ -98,7 +98,7 @@ export default function HomePage() {
                     })}
                   </p>
                   <p className="text-sm text-slate-400">{nextFixture.time} &middot; {nextFixture.venue}</p>
-                  <Badge className="mt-2 bg-yellow-600/20 text-yellow-500 border-yellow-600/30">{nextFixture.matchType}</Badge>
+                  <Badge className="mt-2 bg-orange-600/20 text-orange-500 border-orange-600/30">{nextFixture.matchType}</Badge>
                 </div>
               </div>
             </div>
@@ -108,8 +108,8 @@ export default function HomePage() {
         {/* Recent results */}
         <section>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500">Recent Results</h2>
-            <Link href="/matches" className="text-xs text-slate-400 hover:text-green-400 font-semibold tracking-wider uppercase transition-colors">
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">Recent Results</h2>
+            <Link href="/matches" className="text-xs text-slate-400 hover:text-orange-400 font-semibold tracking-wider uppercase transition-colors">
               View all &rarr;
             </Link>
           </div>
@@ -117,7 +117,7 @@ export default function HomePage() {
             {recentMatches.map((match) => (
               <Link key={match.id} href={`/matches/${match.id}`}>
                 <div className={`rounded-xl gradient-card p-5 hover:scale-[1.02] transition-transform border ${
-                  match.result === "Won" ? "border-green-900/30 hover:border-green-600/40" : "border-red-900/30 hover:border-red-600/40"
+                  match.result === "Won" ? "border-[#213661]/40 hover:border-blue-500/40" : "border-red-900/30 hover:border-red-600/40"
                 }`}>
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
@@ -125,7 +125,7 @@ export default function HomePage() {
                     </span>
                     <span className={`text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded ${
                       match.result === "Won"
-                        ? "bg-green-500/15 text-green-400"
+                        ? "bg-blue-500/15 text-blue-400"
                         : "bg-red-500/15 text-red-400"
                     }`}>
                       {match.result}
@@ -134,7 +134,7 @@ export default function HomePage() {
                   <p className="font-bold text-white text-lg">vs {match.opponent}</p>
                   <div className="mt-3 space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-green-400 font-semibold">DSC</span>
+                      <span className="text-orange-400 font-semibold">DSC</span>
                       <span className="text-white font-bold">{match.dscScore}</span>
                     </div>
                     <div className="flex justify-between text-sm">
@@ -153,14 +153,14 @@ export default function HomePage() {
         {topBatters.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500">Top Run Scorers</h2>
-              <Link href="/leaderboard" className="text-xs text-slate-400 hover:text-green-400 font-semibold tracking-wider uppercase transition-colors">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">Top Run Scorers</h2>
+              <Link href="/leaderboard" className="text-xs text-slate-400 hover:text-orange-400 font-semibold tracking-wider uppercase transition-colors">
                 Full stats &rarr;
               </Link>
             </div>
             <div className="grid md:grid-cols-3 gap-4">
               {topBatters.map((player, i) => {
-                const medals = ["bg-yellow-500", "bg-slate-400", "bg-amber-700"];
+                const medals = ["bg-orange-500", "bg-slate-400", "bg-amber-700"];
                 return (
                   <div key={player.playerId} className="rounded-xl gradient-card border border-slate-800 p-5 flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-full ${medals[i]} flex items-center justify-center text-white font-black text-sm`}>
@@ -185,14 +185,14 @@ export default function HomePage() {
         {latestPost && (
           <section>
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500">Latest News</h2>
-              <Link href="/news" className="text-xs text-slate-400 hover:text-green-400 font-semibold tracking-wider uppercase transition-colors">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400">Latest News</h2>
+              <Link href="/news" className="text-xs text-slate-400 hover:text-orange-400 font-semibold tracking-wider uppercase transition-colors">
                 All articles &rarr;
               </Link>
             </div>
             <Link href={`/news/${latestPost.slug}`}>
-              <div className="rounded-xl gradient-card border border-slate-800 p-6 hover:border-green-900/40 transition-colors">
-                <Badge className="bg-green-500/15 text-green-400 border-green-600/30 mb-3">{latestPost.category}</Badge>
+              <div className="rounded-xl gradient-card border border-slate-800 p-6 hover:border-[#213661]/50 transition-colors">
+                <Badge className="bg-[#213661]/20 text-blue-400 border-[#213661]/40 mb-3">{latestPost.category}</Badge>
                 <h3 className="text-xl font-bold text-white mb-2">{latestPost.title}</h3>
                 <p className="text-slate-400 text-sm">{latestPost.excerpt}</p>
                 <p className="text-xs text-slate-600 mt-3">

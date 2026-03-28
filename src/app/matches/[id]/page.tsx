@@ -24,7 +24,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
         <div className="flex items-center gap-3 mb-2">
           <h1 className="text-3xl font-black tracking-tight text-white">DSC vs {match.opponent}</h1>
           <span className={`text-xs font-black uppercase tracking-wider px-3 py-1 rounded ${
-            match.result === "Won" ? "bg-green-500/15 text-green-400" : "bg-red-500/15 text-red-400"
+            match.result === "Won" ? "bg-blue-500/15 text-blue-400" : "bg-red-500/15 text-red-400"
           }`}>
             {match.result}
           </span>
@@ -42,8 +42,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
       {/* Scores */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="rounded-xl gradient-card border border-green-900/30 p-6 text-center">
-          <p className="text-xs uppercase tracking-[0.2em] text-green-500 font-semibold mb-2">DSC</p>
+        <div className="rounded-xl gradient-card border border-[#213661]/40 p-6 text-center">
+          <p className="text-xs uppercase tracking-[0.2em] text-orange-500 font-semibold mb-2">DSC</p>
           <p className="text-4xl font-black stat-number">{match.dscScore}</p>
         </div>
         <div className="rounded-xl gradient-card border border-slate-800 p-6 text-center">
@@ -54,8 +54,8 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
 
       {/* MOTM */}
       {motmPlayer && (
-        <div className="rounded-xl border-glow-gold bg-gradient-to-r from-[#111827] via-[#1a1a0a] to-[#111827] p-6 glow-gold">
-          <p className="text-xs uppercase tracking-[0.2em] text-yellow-500 font-semibold mb-2">Man of the Match</p>
+        <div className="rounded-xl border-glow-orange bg-gradient-to-r from-[#111827] via-[#1a1510] to-[#111827] p-6 glow-orange">
+          <p className="text-xs uppercase tracking-[0.2em] text-orange-500 font-semibold mb-2">Man of the Match</p>
           <p className="font-black text-xl text-white">{motmPlayer.name}</p>
           <p className="text-sm text-slate-400 mt-1">{match.motmReason}</p>
         </div>
@@ -64,14 +64,14 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       {/* Batting scorecard */}
       {match.batting && match.batting.length > 0 && (
         <section>
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500 mb-4">DSC Batting</h2>
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400 mb-4">DSC Batting</h2>
           <div className="rounded-xl gradient-card border border-slate-800 overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-slate-800 bg-green-600/5">
+                  <tr className="border-b border-slate-800 bg-[#213661]/10">
                     <th className="text-left text-[10px] uppercase tracking-wider text-slate-500 font-semibold px-4 py-3">Batter</th>
-                    <th className="text-right text-[10px] uppercase tracking-wider text-green-500 font-semibold px-4 py-3">R</th>
+                    <th className="text-right text-[10px] uppercase tracking-wider text-orange-500 font-semibold px-4 py-3">R</th>
                     <th className="text-right text-[10px] uppercase tracking-wider text-slate-500 font-semibold px-4 py-3">B</th>
                     <th className="text-right text-[10px] uppercase tracking-wider text-slate-500 font-semibold px-4 py-3">4s</th>
                     <th className="text-right text-[10px] uppercase tracking-wider text-slate-500 font-semibold px-4 py-3">6s</th>
@@ -83,7 +83,7 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
                   {match.batting.map((inn) => (
                     <tr key={inn.playerId} className="border-b border-slate-800/50 hover:bg-white/[0.02]">
                       <td className="px-4 py-3 font-semibold text-white text-sm">{inn.playerName}</td>
-                      <td className="text-right px-4 py-3 text-sm font-bold text-green-400">{inn.runs}</td>
+                      <td className="text-right px-4 py-3 text-sm font-bold text-orange-400">{inn.runs}</td>
                       <td className="text-right px-4 py-3 text-sm text-slate-400">{inn.balls}</td>
                       <td className="text-right px-4 py-3 text-sm text-slate-400">{inn.fours}</td>
                       <td className="text-right px-4 py-3 text-sm text-slate-400">{inn.sixes}</td>
@@ -136,9 +136,9 @@ export default async function MatchPage({ params }: { params: Promise<{ id: stri
       {/* AI Match Report */}
       {match.aiReport && (
         <section>
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500 mb-4">Match Report</h2>
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-blue-400 mb-4">Match Report</h2>
           <div className="rounded-xl gradient-card border border-slate-800 p-6">
-            <div className="inline-flex items-center gap-2 px-2 py-1 rounded bg-green-500/10 text-green-400 text-[10px] font-semibold tracking-wider uppercase mb-4">
+            <div className="inline-flex items-center gap-2 px-2 py-1 rounded bg-[#213661]/20 text-blue-400 text-[10px] font-semibold tracking-wider uppercase mb-4">
               AI Generated
             </div>
             {match.aiReport.split("\n\n").map((para, i) => (

@@ -4,9 +4,9 @@ import { getPlayers } from "@/lib/content";
 export const metadata = { title: "Squad | DSC Cricket" };
 
 const roleColors: Record<string, string> = {
-  Batsman: "bg-green-500/15 text-green-400 border-green-600/30",
+  Batsman: "bg-blue-500/15 text-blue-400 border-blue-600/30",
   Bowler: "bg-red-500/15 text-red-400 border-red-600/30",
-  "All-Rounder": "bg-blue-500/15 text-blue-400 border-blue-600/30",
+  "All-Rounder": "bg-orange-500/15 text-orange-400 border-orange-600/30",
   "Wicket-Keeper": "bg-yellow-500/15 text-yellow-400 border-yellow-600/30",
 };
 
@@ -20,8 +20,8 @@ export default function PlayersPage() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {players.map((player) => (
           <Link key={player.id} href={`/players/${player.id}`}>
-            <div className="rounded-xl gradient-card border border-slate-800 p-6 text-center hover:border-green-900/40 hover:scale-[1.03] transition-all group">
-              <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-green-500/20 to-green-900/20 border-2 border-green-600/20 flex items-center justify-center text-2xl font-black text-green-400 group-hover:border-green-500/40 transition-colors">
+            <div className="rounded-xl gradient-card border border-slate-800 p-6 text-center hover:border-[#213661]/50 hover:scale-[1.03] transition-all group">
+              <div className="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#213661]/30 to-[#213661]/10 border-2 border-[#213661]/30 flex items-center justify-center text-2xl font-black text-blue-400 group-hover:border-orange-500/40 transition-colors">
                 {player.name.split(" ").map((n) => n[0]).join("")}
               </div>
               {player.jerseyNumber && (

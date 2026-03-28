@@ -19,15 +19,15 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-green-900/30 bg-[#0a0f1a]/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-[#213661]/40 bg-[#0a0f1a]/95 backdrop-blur">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-full gradient-green flex items-center justify-center font-black text-white text-sm tracking-tighter shadow-lg shadow-green-900/30">
+          <div className="w-10 h-10 rounded-full gradient-navy flex items-center justify-center font-black text-white text-sm tracking-tighter shadow-lg shadow-[#213661]/30">
             DSC
           </div>
           <div className="hidden sm:block">
             <p className="font-extrabold text-lg tracking-tight text-white leading-none">DSC CRICKET</p>
-            <p className="text-[10px] uppercase tracking-[0.2em] text-green-500 font-semibold">Est. 2024</p>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-orange-500 font-semibold">Est. 2024</p>
           </div>
         </Link>
 
@@ -39,13 +39,13 @@ export function Navbar() {
               href={link.href}
               className={`px-4 py-2 text-xs font-bold tracking-wider transition-all relative ${
                 pathname === link.href
-                  ? "text-green-400"
+                  ? "text-orange-400"
                   : "text-slate-400 hover:text-white"
               }`}
             >
               {link.label}
               {pathname === link.href && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-green-500 rounded-full" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-orange-500 rounded-full" />
               )}
             </Link>
           ))}
@@ -62,7 +62,7 @@ export function Navbar() {
               <line x1="3" y1="18" x2="21" y2="18" />
             </svg>
           </SheetTrigger>
-          <SheetContent side="right" className="w-64 bg-[#0a0f1a] border-green-900/30">
+          <SheetContent side="right" className="w-64 bg-[#0a0f1a] border-[#213661]/30">
             <SheetTitle className="text-lg font-bold mb-6 text-white">DSC CRICKET</SheetTitle>
             <nav className="flex flex-col gap-1">
               {links.map((link) => (
@@ -72,7 +72,7 @@ export function Navbar() {
                   onClick={() => setOpen(false)}
                   className={`px-4 py-3 rounded-lg text-sm font-bold tracking-wider transition-all ${
                     pathname === link.href
-                      ? "bg-green-600/20 text-green-400 border-l-2 border-green-500"
+                      ? "bg-[#213661]/30 text-orange-400 border-l-2 border-orange-500"
                       : "text-slate-400 hover:text-white hover:bg-white/5"
                   }`}
                 >

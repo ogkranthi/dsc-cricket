@@ -31,10 +31,10 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <Navbar />
         <main className="flex-1">{children}</main>
-        <footer className="border-t border-green-900/20 py-8 bg-[#080c14]">
+        <footer className="border-t border-[#213661]/30 py-8 bg-[#080c14]">
           <div className="mx-auto max-w-6xl px-4 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full gradient-green flex items-center justify-center font-black text-white text-[10px]">
+              <div className="w-8 h-8 rounded-full gradient-navy flex items-center justify-center font-black text-white text-[10px]">
                 DSC
               </div>
               <p className="text-xs text-slate-500 font-semibold tracking-wider uppercase">

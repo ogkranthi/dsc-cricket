@@ -15,7 +15,7 @@ export default function MatchesPage() {
         {matches.map((match) => (
           <Link key={match.id} href={`/matches/${match.id}`}>
             <div className={`rounded-xl gradient-card p-5 border transition-all hover:scale-[1.01] mb-3 ${
-              match.result === "Won" ? "border-green-900/20 hover:border-green-600/30" : "border-red-900/20 hover:border-red-600/30"
+              match.result === "Won" ? "border-[#213661]/30 hover:border-blue-500/40" : "border-red-900/20 hover:border-red-600/30"
             }`}>
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
                 <div className="flex-1">
@@ -23,7 +23,7 @@ export default function MatchesPage() {
                     <p className="text-lg font-bold text-white">DSC vs {match.opponent}</p>
                     <span className={`text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded ${
                       match.result === "Won"
-                        ? "bg-green-500/15 text-green-400"
+                        ? "bg-blue-500/15 text-blue-400"
                         : match.result === "Lost"
                         ? "bg-red-500/15 text-red-400"
                         : "bg-slate-500/15 text-slate-400"
@@ -39,7 +39,7 @@ export default function MatchesPage() {
                 </div>
                 {match.dscScore && (
                   <div className="text-right space-y-0.5">
-                    <p className="text-sm font-bold text-green-400">DSC: {match.dscScore}</p>
+                    <p className="text-sm font-bold text-orange-400">DSC: {match.dscScore}</p>
                     <p className="text-sm text-slate-400">{match.opponent}: {match.opponentScore}</p>
                   </div>
                 )}

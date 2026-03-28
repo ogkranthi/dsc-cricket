@@ -17,13 +17,13 @@ export default function SchedulePage() {
 
       {upcoming.length > 0 && (
         <section>
-          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500 mb-4">Upcoming</h2>
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-orange-500 mb-4">Upcoming</h2>
           <div className="space-y-3">
             {upcoming.map((f) => (
-              <div key={f.id} className="rounded-xl gradient-card border border-green-900/20 p-5 hover:border-green-600/30 transition-colors">
+              <div key={f.id} className="rounded-xl gradient-card border border-[#213661]/30 p-5 hover:border-orange-600/30 transition-colors">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-lg gradient-green flex items-center justify-center font-black text-white text-xs shadow-lg">
+                    <div className="w-12 h-12 rounded-lg gradient-navy flex items-center justify-center font-black text-white text-xs shadow-lg">
                       DSC
                     </div>
                     <div>
@@ -38,7 +38,7 @@ export default function SchedulePage() {
                       </p>
                       <p className="text-xs text-slate-500">{f.time}</p>
                     </div>
-                    <Badge className="bg-green-500/15 text-green-400 border-green-600/30">{f.matchType}</Badge>
+                    <Badge className="bg-orange-500/15 text-orange-400 border-orange-600/30">{f.matchType}</Badge>
                   </div>
                 </div>
               </div>
