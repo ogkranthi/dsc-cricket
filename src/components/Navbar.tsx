@@ -12,6 +12,7 @@ const links = [
   { href: "/leaderboard", label: "STATS" },
   { href: "/news", label: "NEWS" },
   { href: "/schedule", label: "FIXTURES" },
+  { href: "/dcl", label: "DCL" },
 ];
 
 export function Navbar() {
