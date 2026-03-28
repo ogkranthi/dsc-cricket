@@ -1,65 +1,208 @@
-import Image from "next/image";
+import Link from "next/link";
+import { getMatches, getTeamStats, getSchedule, getPosts, getBattingLeaderboard } from "@/lib/content";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
-export default function Home() {
+export default function HomePage() {
+  const matches = getMatches();
+  const stats = getTeamStats();
+  const schedule = getSchedule();
+  const posts = getPosts();
+  const topBatters = getBattingLeaderboard().slice(0, 3);
+
+  const recentMatches = matches.filter((m) => m.result !== "Upcoming").slice(0, 3);
+  const nextFixture = schedule.find((f) => f.status === "upcoming");
+  const latestPost = posts[0];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div>
+      {/* Hero */}
+      <section className="gradient-hero relative overflow-hidden">
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-10 right-10 w-96 h-96 rounded-full border border-green-500/20" />
+          <div className="absolute bottom-10 left-10 w-64 h-64 rounded-full border border-yellow-500/20" />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+        <div className="mx-auto max-w-6xl px-4 py-20 md:py-28 relative">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-semibold tracking-wider uppercase mb-6">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+              Season 2026
+            </div>
+            <h1 className="text-5xl md:text-7xl font-black tracking-tight text-white leading-[0.9]">
+              DSC<br />
+              <span className="text-green-500">CRICKET</span>
+            </h1>
+            <p className="text-lg text-slate-400 mt-6 max-w-md">
+              Match reports, live stats, player profiles, and everything DSC. Powered by AI.
+            </p>
+            <div className="flex gap-3 mt-8">
+              <Link
+                href="/matches"
+                className="px-6 py-3 rounded-lg gradient-green text-white font-bold text-sm tracking-wide hover:opacity-90 transition-opacity shadow-lg shadow-green-900/30"
+              >
+                VIEW MATCHES
+              </Link>
+              <Link
+                href="/players"
+                className="px-6 py-3 rounded-lg bg-white/5 border border-white/10 text-white font-bold text-sm tracking-wide hover:bg-white/10 transition-colors"
+              >
+                MEET THE SQUAD
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* Stats bar */}
+      <section className="border-y border-green-900/20 bg-[#0d1420]">
+        <div className="mx-auto max-w-6xl px-4 py-6">
+          <div className="grid grid-cols-5 divide-x divide-slate-800">
+            {[
+              { label: "PLAYED", value: stats.played },
+              { label: "WON", value: stats.won },
+              { label: "LOST", value: stats.lost },
+              { label: "TIED", value: stats.tied },
+              { label: "WIN %", value: stats.played > 0 ? `${Math.round((stats.won / stats.played) * 100)}%` : "-" },
+            ].map((s) => (
+              <div key={s.label} className="text-center px-2">
+                <p className="text-2xl md:text-3xl font-black stat-number">{s.value}</p>
+                <p className="text-[10px] uppercase tracking-[0.15em] text-slate-500 font-semibold mt-1">{s.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl px-4 py-10 space-y-12">
+        {/* Next match */}
+        {nextFixture && (
+          <section>
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500 mb-4">Next Match</h2>
+            <div className="rounded-xl border-glow-gold bg-gradient-to-r from-[#111827] via-[#1a1a0a] to-[#111827] p-6 glow-gold">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="flex items-center gap-6">
+                  <div className="w-16 h-16 rounded-xl gradient-green flex items-center justify-center font-black text-white text-xl shadow-lg">
+                    DSC
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-wider text-yellow-500 font-semibold">VS</p>
+                    <p className="text-xl font-bold text-white">{nextFixture.opponent}</p>
+                  </div>
+                </div>
+                <div className="text-center md:text-right">
+                  <p className="text-lg font-bold text-white">
+                    {new Date(nextFixture.date).toLocaleDateString("en-US", {
+                      weekday: "long",
+                      month: "short",
+                      day: "numeric",
+                    })}
+                  </p>
+                  <p className="text-sm text-slate-400">{nextFixture.time} &middot; {nextFixture.venue}</p>
+                  <Badge className="mt-2 bg-yellow-600/20 text-yellow-500 border-yellow-600/30">{nextFixture.matchType}</Badge>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Recent results */}
+        <section>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500">Recent Results</h2>
+            <Link href="/matches" className="text-xs text-slate-400 hover:text-green-400 font-semibold tracking-wider uppercase transition-colors">
+              View all &rarr;
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {recentMatches.map((match) => (
+              <Link key={match.id} href={`/matches/${match.id}`}>
+                <div className={`rounded-xl gradient-card p-5 hover:scale-[1.02] transition-transform border ${
+                  match.result === "Won" ? "border-green-900/30 hover:border-green-600/40" : "border-red-900/30 hover:border-red-600/40"
+                }`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-xs uppercase tracking-wider text-slate-500 font-semibold">
+                      {new Date(match.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                    </span>
+                    <span className={`text-xs font-black uppercase tracking-wider px-2 py-0.5 rounded ${
+                      match.result === "Won"
+                        ? "bg-green-500/15 text-green-400"
+                        : "bg-red-500/15 text-red-400"
+                    }`}>
+                      {match.result}
+                    </span>
+                  </div>
+                  <p className="font-bold text-white text-lg">vs {match.opponent}</p>
+                  <div className="mt-3 space-y-1">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-green-400 font-semibold">DSC</span>
+                      <span className="text-white font-bold">{match.dscScore}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-slate-400">{match.opponent}</span>
+                      <span className="text-slate-300">{match.opponentScore}</span>
+                    </div>
+                  </div>
+                  <p className="text-xs text-slate-500 mt-3">{match.venue}</p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Top performers */}
+        {topBatters.length > 0 && (
+          <section>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500">Top Run Scorers</h2>
+              <Link href="/leaderboard" className="text-xs text-slate-400 hover:text-green-400 font-semibold tracking-wider uppercase transition-colors">
+                Full stats &rarr;
+              </Link>
+            </div>
+            <div className="grid md:grid-cols-3 gap-4">
+              {topBatters.map((player, i) => {
+                const medals = ["bg-yellow-500", "bg-slate-400", "bg-amber-700"];
+                return (
+                  <div key={player.playerId} className="rounded-xl gradient-card border border-slate-800 p-5 flex items-center gap-4">
+                    <div className={`w-10 h-10 rounded-full ${medals[i]} flex items-center justify-center text-white font-black text-sm`}>
+                      {i + 1}
+                    </div>
+                    <div className="flex-1">
+                      <p className="font-bold text-white">{player.playerName}</p>
+                      <p className="text-xs text-slate-500">{player.matches} matches</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-black stat-number">{player.runs}</p>
+                      <p className="text-[10px] uppercase tracking-wider text-slate-500">runs</p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* Latest news */}
+        {latestPost && (
+          <section>
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-green-500">Latest News</h2>
+              <Link href="/news" className="text-xs text-slate-400 hover:text-green-400 font-semibold tracking-wider uppercase transition-colors">
+                All articles &rarr;
+              </Link>
+            </div>
+            <Link href={`/news/${latestPost.slug}`}>
+              <div className="rounded-xl gradient-card border border-slate-800 p-6 hover:border-green-900/40 transition-colors">
+                <Badge className="bg-green-500/15 text-green-400 border-green-600/30 mb-3">{latestPost.category}</Badge>
+                <h3 className="text-xl font-bold text-white mb-2">{latestPost.title}</h3>
+                <p className="text-slate-400 text-sm">{latestPost.excerpt}</p>
+                <p className="text-xs text-slate-600 mt-3">
+                  {new Date(latestPost.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                </p>
+              </div>
+            </Link>
+          </section>
+        )}
+      </div>
     </div>
   );
 }
