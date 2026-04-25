@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Navbar } from "@/components/Navbar";
+import { Chatbot } from "@/components/Chatbot";
 import "./globals.css";
 
 const inter = Inter({
@@ -46,6 +47,7 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+        <Chatbot />
       </body>
     </html>
   );
