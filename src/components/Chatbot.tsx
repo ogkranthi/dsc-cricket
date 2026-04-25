@@ -60,7 +60,7 @@ const FAQS: Faq[] = [
   {
     keywords: ["watch", "stream", "live", "video", "youtube"],
     answer:
-      "We stream and upload matches to our YouTube channel: youtube.com/@dsc-ma.",
+      "We stream and upload matches to our YouTube channel: youtube.com/@dsc-cricket.",
   },
   {
     keywords: ["cricclubs", "register", "scoring", "official"],
