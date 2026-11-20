@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getBattingLeaderboard, getBowlingLeaderboard } from "@/lib/content";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -10,7 +11,8 @@ export default function LeaderboardPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-black tracking-tight text-white mb-2">LEADERBOARD</h1>
-      <p className="text-sm text-slate-500 mb-8">Season statistics and rankings</p>
+      <p className="text-sm text-slate-500 mb-8">Statistics from archived full scorecards</p>
+      <Link href="/season-2026" className="mb-6 inline-block rounded-lg bg-[#ff8c2a] px-4 py-2 text-sm font-bold text-[#13100b]">2026 season statistics &rarr;</Link>
 
       <Tabs defaultValue="batting">
         <TabsList className="bg-[#111827] border border-slate-800 mb-6">

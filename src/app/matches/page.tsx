@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { getMatches } from "@/lib/content";
-import { Badge } from "@/components/ui/badge";
 
 export const metadata = { title: "Matches | DSC Cricket" };
 
@@ -10,7 +9,8 @@ export default function MatchesPage() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-10">
       <h1 className="text-3xl font-black tracking-tight text-white mb-2">MATCHES</h1>
-      <p className="text-sm text-slate-500 mb-8">All DSC match results and scorecards</p>
+      <p className="text-sm text-slate-500 mb-8">Archived DSC match reports and full scorecards</p>
+      <Link href="/season-2026" className="mb-6 inline-block rounded-lg bg-[#ff8c2a] px-4 py-2 text-sm font-bold text-[#13100b]">2026 season results &rarr;</Link>
       <div className="space-y-3">
         {matches.map((match) => (
           <Link key={match.id} href={`/matches/${match.id}`}>

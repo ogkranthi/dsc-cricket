@@ -1,18 +1,17 @@
 import Link from "next/link";
-import { getMatches, getTeamStats, getSchedule, getPosts, getBattingLeaderboard, getSeasons } from "@/lib/content";
-import { Badge } from "@/components/ui/badge";
+import { getMatches, getSchedule, getPosts, getSeasons } from "@/lib/content";
+import season2026 from "@/data/season-2026.json";
+import { UpcomingFixtures } from "@/components/UpcomingFixtures";
 import { SeasonHighlights } from "@/components/SeasonHighlights";
 
 export default function HomePage() {
   const matches = getMatches();
-  const stats = getTeamStats();
   const schedule = getSchedule();
   const posts = getPosts();
-  const topBatters = getBattingLeaderboard().slice(0, 3);
+  const topBatters = [...season2026.players].sort((a, b) => b.runs - a.runs).slice(0, 3);
 
   const seasons = getSeasons();
   const recentMatches = matches.filter((m) => m.result !== "Upcoming").slice(0, 3);
-  const nextFixture = schedule.find((f) => f.status === "upcoming");
   const latestPost = posts[0];
 
   return (
@@ -34,10 +33,10 @@ export default function HomePage() {
             </p>
             <div className="flex gap-3 mt-7">
               <Link
-                href="/matches"
+                href="/season-2026"
                 className="px-5 py-2.5 rounded-lg bg-[#ff8c2a] text-white font-bold text-xs tracking-wider hover:bg-[#e07a20] transition-colors"
               >
-                MATCHES
+                2026 SEASON
               </Link>
               <Link
                 href="/players"
@@ -53,13 +52,12 @@ export default function HomePage() {
       {/* Stats strip */}
       <section className="border-y border-white/[0.04] bg-[#0a0c12]">
         <div className="mx-auto max-w-6xl px-4 py-5">
-          <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: "PLAYED", value: stats.played },
-              { label: "WON", value: stats.won },
-              { label: "LOST", value: stats.lost },
-              { label: "TIED", value: stats.tied },
-              { label: "WIN %", value: stats.played > 0 ? `${Math.round((stats.won / stats.played) * 100)}%` : "-" },
+              { label: "MATCHES COMPLETED", value: season2026.summary.completed },
+              { label: "ABANDONED", value: season2026.summary.abandoned },
+              { label: "PLAYERS USED", value: season2026.summary.playersUsed },
+              { label: "COMPETITIONS", value: season2026.leagues.length },
             ].map((s) => (
               <div key={s.label} className="text-center">
                 <p className="text-xl md:text-2xl font-black stat-number">{s.value}</p>
@@ -71,35 +69,12 @@ export default function HomePage() {
       </section>
 
       <div className="mx-auto max-w-6xl px-4 py-8 space-y-10">
-        {/* Next match */}
-        {nextFixture && (
-          <section>
-            <p className="section-label text-[#ff8c2a] mb-3">Next Match</p>
-            <div className="rounded-xl bg-gradient-to-r from-[#0e1117] via-[#15120d] to-[#0e1117] p-5 border border-[#ff8c2a]/10">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-5">
-                <div className="flex items-center gap-5">
-                  <img src="/logo.svg" alt="DSC" width={48} height={48} className="rounded-xl" />
-                  <div>
-                    <p className="text-[10px] uppercase tracking-widest text-[#ff8c2a] font-bold">VS</p>
-                    <p className="text-lg font-extrabold text-white tracking-tight">{nextFixture.opponent}</p>
-                  </div>
-                </div>
-                <div className="text-center md:text-right">
-                  <p className="text-sm font-bold text-white">
-                    {new Date(nextFixture.date).toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}
-                  </p>
-                  <p className="text-xs text-slate-500 mt-0.5">{nextFixture.time} &middot; {nextFixture.venue}</p>
-                  <span className="inline-block mt-1.5 text-[10px] font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-[#ff8c2a]/10 text-[#ff8c2a]">{nextFixture.matchType}</span>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
+        <UpcomingFixtures fixtures={schedule} nextOnly />
 
         {/* Recent results */}
         <section>
           <div className="flex items-center justify-between mb-3">
-            <p className="section-label text-slate-400">Recent Results</p>
+            <p className="section-label text-slate-400">Archived Scorecards</p>
             <Link href="/matches" className="text-[11px] text-slate-500 hover:text-[#ff8c2a] font-semibold tracking-wider uppercase transition-colors">
               All &rarr;
             </Link>
@@ -112,7 +87,7 @@ export default function HomePage() {
                 }`}>
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-[10px] uppercase tracking-widest text-slate-600 font-semibold">
-                      {new Date(match.date).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                      {new Date(match.date).toLocaleDateString("en-US", { timeZone: "UTC", month: "short", day: "numeric", year: "numeric" })}
                     </span>
                     <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded ${
                       match.result === "Won" ? "badge-won" : "badge-lost"
@@ -141,8 +116,8 @@ export default function HomePage() {
         {topBatters.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-3">
-              <p className="section-label text-slate-400">Top Run Scorers</p>
-              <Link href="/leaderboard" className="text-[11px] text-slate-500 hover:text-[#ff8c2a] font-semibold tracking-wider uppercase transition-colors">
+              <p className="section-label text-slate-400">2026 Top Run Scorers</p>
+              <Link href="/season-2026" className="text-[11px] text-slate-500 hover:text-[#ff8c2a] font-semibold tracking-wider uppercase transition-colors">
                 Stats &rarr;
               </Link>
             </div>
@@ -150,11 +125,11 @@ export default function HomePage() {
               {topBatters.map((player, i) => {
                 const rankColors = ["text-[#ff8c2a]", "text-slate-400", "text-amber-700"];
                 return (
-                  <div key={player.playerId} className="rounded-xl gradient-card border border-white/[0.04] p-4 flex items-center gap-3.5">
+                  <div key={player.name} className="rounded-xl gradient-card border border-white/[0.04] p-4 flex items-center gap-3.5">
                     <span className={`text-2xl font-black ${rankColors[i]} w-8 text-center`}>{i + 1}</span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-white text-sm truncate">{player.playerName}</p>
-                      <p className="text-[10px] text-slate-600">{player.matches} matches</p>
+                      <p className="font-bold text-white text-sm truncate">{player.name}</p>
+                      <p className="text-[10px] text-slate-600">{player.innings} innings</p>
                     </div>
                     <div className="text-right">
                       <p className="text-xl font-black stat-number">{player.runs}</p>
